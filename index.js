@@ -1,25 +1,36 @@
-var express = require('express');
-var cors = require('cors');
-require('dotenv').config()
+
+const express = require('express');
+const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 
-var app = express();
+// Set up basic express app
+const app = express();
 
-app.use(cors({ optionsSuccessStatus: 200 }));
-app.use('/public', express.static(process.cwd() + '/public'));
+// Configure CORS
+app.use(cors());
 
-app.get('/', function (req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
+// Serve static files from the public directory
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// Serve the HTML form at the root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-// Set up multer for file storage
-const storage = multer.memoryStorage(); // You can configure storage options here
-const upload = multer({ storage: storage });
+// Configure multer for file uploads
+const upload = multer({
+  // Store files in memory only, not on disk
+  storage: multer.memoryStorage()
+});
 
+// Handle file upload
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
+    return res.status(400).json({ error: 'Please upload a file' });
   }
+
+  // Return file metadata
   res.json({
     name: req.file.originalname,
     type: req.file.mimetype,
@@ -27,8 +38,9 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   });
 });
 
-
-const port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log('Your app is listening on port ' + port)
-});
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`Visit http://localhost:${PORT} to use the application`);
+}); 
