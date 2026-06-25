@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 
 // Configure CORS
-app.use(cors());
+app.use(cors({ optionsSuccessStatus: 200 }));
 
 // Serve static files from the public directory
 app.use('/public', express.static(path.join(__dirname, 'public')));
