@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Metadata Microservice | freeCodeCamp</title>
+  <meta name="description" content="A freeCodeCamp API project: File Metadata Microservice" />
+  <link rel="shortcut icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png"
+    type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="/public/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="header-title">File Metadata Microservice</h1>
+      <p class="header-subtitle">Upload any file to retrieve its name, type, and size.</p>
+    </header>
+
+    <div class="card">
+      <h2 class="card-title">Upload a File</h2>
+      <p class="section-desc">Select a file and click Upload to get its metadata.</p>
+
+      <form enctype="multipart/form-data" method="POST" action="/api/fileanalyse" class="upload-form">
+        <label class="file-label" for="inputfield">
+          <span class="file-label-text">Choose a file...</span>
+          <input id="inputfield" type="file" name="upfile" class="file-input" />
+        </label>
+        <button id="button" type="submit" class="btn-upload">Upload</button>
+      </form>
+
+      <div class="divider"></div>
+
+      <h2 class="card-title">Expected Output</h2>
+      <div class="code-box">
+        <div class="code-line">
+          <span class="key">"name"</span><span class="colon">:</span>
+          <span class="value">"hello.txt"</span><span class="comma">,</span>
+        </div>
+        <div class="code-line">
+          <span class="key">"type"</span><span class="colon">:</span>
+          <span class="value">"text/plain"</span><span class="comma">,</span>
+        </div>
+        <div class="code-line">
+          <span class="key">"size"</span><span class="colon">:</span>
+          <span class="value">15342</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      Built with ❤️ for <a href="https://www.freecodecamp.org" target="_blank">freeCodeCamp</a>
+    </footer>
+  </div>
+
+  <script>
+    // Show selected filename in label
+    const input = document.getElementById('inputfield');
+    const labelText = document.querySelector('.file-label-text');
+    input.addEventListener('change', () => {
+      labelText.textContent = input.files[0] ? input.files[0].name : 'Choose a file...';
+    });
+  </script>
+</body>
+
+</html>

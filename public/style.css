@@ -1,0 +1,298 @@
+/* ============================
+   RESET & BASE
+   ============================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-dark: #0d1117;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.10);
+  --text-primary: #e6edf3;
+  --text-muted: #8b949e;
+  --text-code: #79c0ff;
+  --accent-blue: #58a6ff;
+  --accent-indigo: #818cf8;
+  --key-color: #ff7b72;
+  --value-color: #a5d6ff;
+  --orb1: rgba(88, 166, 255, 0.10);
+  --orb2: rgba(129, 140, 248, 0.10);
+  --radius-card: 16px;
+  --transition: 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.5;
+}
+
+/* ============================
+   BACKGROUND ORBS
+   ============================ */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: float 10s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 420px;
+  height: 420px;
+  background: var(--orb1);
+  top: -120px;
+  left: -80px;
+}
+
+.orb-2 {
+  width: 380px;
+  height: 380px;
+  background: var(--orb2);
+  bottom: -100px;
+  right: -80px;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, -25px) scale(1.05); }
+}
+
+/* ============================
+   LAYOUT
+   ============================ */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 620px;
+  padding: 48px 24px;
+}
+
+/* ============================
+   HEADER
+   ============================ */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+  animation: fadeDown 0.6s ease both;
+}
+
+.header-title {
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+
+.header-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ============================
+   CARD
+   ============================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  animation: fadeUp 0.6s 0.15s ease both;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.section-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* ============================
+   FILE UPLOAD FORM
+   ============================ */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Custom file input */
+.file-label {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(88, 166, 255, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  justify-content: center;
+  text-align: center;
+}
+
+.file-label:hover {
+  border-color: rgba(88, 166, 255, 0.7);
+  background: rgba(88, 166, 255, 0.05);
+}
+
+.file-label-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color var(--transition);
+}
+
+.file-label:hover .file-label-text {
+  color: var(--accent-blue);
+}
+
+/* Hide native file input */
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* Upload button */
+.btn-upload {
+  width: 100%;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent-blue), #1f6feb);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 20px rgba(88, 166, 255, 0.25);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.btn-upload:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+.btn-upload:active {
+  transform: translateY(0);
+}
+
+/* ============================
+   DIVIDER
+   ============================ */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 28px 0;
+}
+
+/* ============================
+   CODE BOX
+   ============================ */
+.code-box {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 10px;
+  padding: 18px 22px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.code-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.key   { color: var(--key-color); }
+.colon { color: var(--text-muted); margin: 0 2px; }
+.value { color: var(--value-color); }
+.comma { color: var(--text-muted); }
+
+/* ============================
+   FOOTER
+   ============================ */
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 30px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.footer a {
+  color: var(--text-code);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* ============================
+   ANIMATIONS
+   ============================ */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 500px) {
+  .card { padding: 22px 18px; }
+  .header-title { font-size: 1.6rem; }
+}
