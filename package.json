@@ -4,7 +4,8 @@
   "description": "API project for freeCodeCamp",
   "main": "index.js",
   "scripts": {
-    "start": "run dev"
+    "start": "node index.js",
+    "dev": "node index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
@@ -7,17 +6,24 @@ const path = require('path');
 // Set up basic express app
 const app = express();
 
+// Configure CORS
 app.use(cors());
+
+// Serve static files from the public directory
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+// Serve the HTML form at the root route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
+// Configure multer for file uploads
 const upload = multer({
+  // Store files in memory only, not on disk
   storage: multer.memoryStorage()
 });
 
+// Handle file upload
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'Please upload a file' });
